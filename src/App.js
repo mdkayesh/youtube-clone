@@ -1,25 +1,32 @@
-import logo from './logo.svg';
-import './App.css';
+import {
+  Route,
+  RouterProvider,
+  createBrowserRouter,
+  createRoutesFromElements,
+} from "react-router-dom";
+import RootLayout from "./components/Layouts/RootLayout";
+import { Feed, VideoDetails } from "./components";
+import SearchResult from "./components/Search/SearchResult";
+import Channel from "./components/Channel/Channel";
+import { About, Home } from "./components/Channel/pages";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+  const router = createBrowserRouter(
+    createRoutesFromElements(
+      <Route path="/" element={<RootLayout />}>
+        <Route index element={<Feed />} />
+        <Route path="watch/:videoId" element={<VideoDetails />} />
+        <Route path="search/:searchQuery" element={<SearchResult />} />
+        <Route path="channel/:channelId" element={<Channel />}>
+          <Route index element={<Home />} />
+          <Route path="" element={<Home />} />
+          <Route path="About" element={<About />} />
+        </Route>
+      </Route>
+    )
   );
+
+  return <RouterProvider router={router} />;
 }
 
 export default App;
