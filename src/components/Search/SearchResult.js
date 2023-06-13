@@ -13,11 +13,8 @@ const SearchResult = () => {
     >
       <div className="container">
         {!isLoading ? (
-          searchResults?.contents?.map((result) => (
-            <div
-              className="mt-5"
-              key={result?.video?.videoId || result?.channel?.channelId}
-            >
+          searchResults?.contents?.map((result, index) => (
+            <div className="mt-5" key={index}>
               <SearchVideoCart {...result} />
             </div>
           ))
